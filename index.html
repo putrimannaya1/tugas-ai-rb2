@@ -105,7 +105,7 @@ button{border:0;background:var(--accent);color:#fff;padding:10px 14px;border-rad
 <header class="hero">
   <div class="container">
     <div class="eyebrow">KELOMPOK RB2 • KECERDASAN BUATAN</div>
-    <h1>Tugas Tutor-Menutor Kecerdasan Buatan RB 2 (Bro Kursi Belakang tpi Insyaallah Paham)</h1>
+    <h1>Tugas Tutor-Menutor Kecerdasan Buatan RB 2 (Kelompok Kursi Belakang tetapi Insyaallah Paham)</h1>
     <p>Ini buat gambaran aja, sbagai panduan untuk tugas mengajar sesama anggota kelompok. Setiap topik memiliki kasus yang berbeda, penyelesaian langkah demi langkah, analisis algoritma, serta implementasi Python untuk tiga bagian implementasi.</p>
     <div class="pills">
       <span class="pill">Blind Search</span><span class="pill">Heuristic Search</span>
@@ -203,7 +203,7 @@ button{border:0;background:var(--accent);color:#fff;padding:10px 14px;border-rad
 <div class="panel">
 <h3>Soal   Sistem Evakuasi Gedung Kampus</h3>
 <div class="case">
-<p>Sebuah sistem navigasi evakuasi memodelkan 15 titik persimpangan gedung sebagai graf tak berbobot. Titik <b>A</b> adalah posisi awal mahasiswa dan <b>R</b> adalah pintu evakuasi. Sistem harus mencari rute dengan jumlah perpindahan minimum.</p>
+<p>Sebuah sistem navigasi evakuasi memodelkan 19 titik persimpangan gedung sebagai graf tak berbobot. Titik <b>A</b> adalah posisi awal mahasiswa dan <b>R</b> adalah pintu evakuasi. Sistem harus mencari rute dengan jumlah perpindahan minimum.</p>
 <p>Adjacency list:</p>
 <pre><code>A: B, C, D
 B: E, F
@@ -403,16 +403,17 @@ F→G(2)</code></pre>
 <div class="panel">
 <h3>Penyelesaian</h3>
 <div class="formula">f(n) = g(n) + h(n)</div>
-<table><tr><th>Node</th><th>g(n)</th><th>h(n)</th><th>f(n)</th><th>Keputusan</th></tr>
-<tr><td>S</td><td>0</td><td>6</td><td>6</td><td>Start</td></tr>
-<tr><td>C</td><td>1</td><td>5</td><td>6</td><td>Awalnya terpilih</td></tr>
-<tr><td>A</td><td>2</td><td>5</td><td>7</td><td>Berikutnya</td></tr>
-<tr><td>E</td><td>4</td><td>4</td><td>8</td><td>Masuk frontier</td></tr>
-<tr><td>F</td><td>6</td><td>2</td><td>8</td><td>Diperoleh via E</td></tr>
-<tr><td>G</td><td>8</td><td>0</td><td>8</td><td>Goal</td></tr></table>
+<table><tr><th>Urutan</th><th>Node dipilih</th><th>g(n)</th><th>h(n)</th><th>f(n)</th><th>Keputusan</th></tr>
+<tr><td>1</td><td>S</td><td>0</td><td>6</td><td>6</td><td>Start → A(7), B(8), C(6)</td></tr>
+<tr><td>2</td><td>C</td><td>1</td><td>5</td><td>6</td><td>f terkecil → D(14), F(9)</td></tr>
+<tr><td>3</td><td>A</td><td>2</td><td>5</td><td>7</td><td>f terkecil → D(9), E(8)</td></tr>
+<tr><td>4</td><td>B</td><td>5</td><td>3</td><td>8</td><td>f=8 → E dengan g=6</td></tr>
+<tr><td>5</td><td>E</td><td>4</td><td>4</td><td>8</td><td>f=8 → F diperbarui menjadi g=6, f=8</td></tr>
+<tr><td>6</td><td>F</td><td>6</td><td>2</td><td>8</td><td>f=8 → G dengan g=8</td></tr>
+<tr><td>7</td><td>G</td><td>8</td><td>0</td><td>8</td><td>Goal → solusi ditemukan</td></tr></table>
 <p>Rute yang menghasilkan cost minimum:</p>
 <div class="answer"><b>S → A → E → F → G</b><br>Cost = 2 + 2 + 2 + 2 = <b>8</b>.</div>
-<p>Perhatikan bahwa C memiliki f=6 dan dieksplorasi lebih dulu, tetapi jalur melalui C tidak menghasilkan rute yang lebih murah. A* kemudian menggabungkan informasi cost aktual dengan heuristic dan memperbarui kandidat F ketika ditemukan jalur S→A→E→F dengan g=6.</p>
+<p>Perhatikan bahwa C memiliki f=6 sehingga dieksplorasi lebih dulu. Setelah C dan A diproses, B juga harus diproses sebelum E karena E baru ditemukan ketika B diekspansi. Setelah E diproses, jalur S→A→E→F memberikan g(F)=6 dan f(F)=8. Akhirnya G ditemukan dengan g(G)=8.</p>
 </div>
 <div class="two">
 <div class="panel"><h3>Greedy vs A*</h3><p>Greedy: <b>f=h</b>. A*: <b>f=g+h</b>. A* tidak sekadar mencari node yang tampak dekat; ia memperhitungkan biaya yang telah dibayar.</p></div>
@@ -594,8 +595,8 @@ print("Parent map :", result["parent"])</code></pre>
 <h3>Output yang diharapkan</h3>
 <pre><code>Path : R1 -> R3 -> R6 -> R10 -> R14
 Hops : 4
-Expanded : 13
-Max frontier : 6</code></pre>
+Expanded : 14
+Max frontier : 4</code></pre>
 <p>Jika urutan adjacency dipertahankan seperti input, path pertama yang diperoleh adalah R1→R3→R6→R10→R14. Bisa ada path lain dengan jumlah hop sama; BFS memilih berdasarkan urutan queue.</p>
 <div class="answer"><b>Nilai pedagogis implementasi:</b> program tidak hanya mengembalikan path, tetapi juga memperlihatkan biaya pencarian berupa jumlah ekspansi dan ukuran frontier maksimum.</div>
 </div>
@@ -1220,7 +1221,7 @@ const nodeEl = document.getElementById("nodeStat");
 const moveEl = document.getElementById("moveStat");
 
 function newBoard(){
-  return Array.from({length: ROWS}, () => Array(COLS).fill(EMPTY));
+  return Array.from({length: ROWS}, () => Array(COLS).filMateri dirancangl(EMPTY));
 }
 function legalMoves(b){
   return [...Array(COLS).keys()].filter(c => b[0][c] === EMPTY);
