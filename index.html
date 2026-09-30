@@ -1221,7 +1221,7 @@ const nodeEl = document.getElementById("nodeStat");
 const moveEl = document.getElementById("moveStat");
 
 function newBoard(){
-  return Array.from({length: ROWS}, () => Array(COLS).filMateri dirancangl(EMPTY));
+  return Array.from({length: ROWS}, () => Array(COLS).fill(EMPTY));
 }
 function legalMoves(b){
   return [...Array(COLS).keys()].filter(c => b[0][c] === EMPTY);
